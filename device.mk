@@ -1,4 +1,6 @@
-# Copyright (C) 2011 The CyanogenMod Project
+# Copyright (C) 2016 Matthew D. Mower
+# Copyright (C) 2013 The CyanogenMod Project
+# Copyright (C) 2012 The Android Open-Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,21 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
+# Get non-open-source specific aspects
 $(call inherit-product-if-exists, vendor/htc/dlx/dlx-vendor.mk)
 
+# Overlays
 DEVICE_PACKAGE_OVERLAYS += device/htc/dlx/overlay
 
-LOCAL_PATH := device/htc/dlx
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-        LOCAL_KERNEL := $(LOCAL_PATH)/kernel
-else
-        LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-endif
+# Screen density
+PRODUCT_AAPT_CONFIG := normal
+PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
-$(call inherit-product, build/target/product/full.mk)
-
-PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
-PRODUCT_NAME := full_dlx
-PRODUCT_DEVICE := dlx
+# Boot animation
+TARGET_SCREEN_HEIGHT := 1920
+TARGET_SCREEN_WIDTH := 1080

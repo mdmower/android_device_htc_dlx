@@ -1,4 +1,5 @@
-#
+# Copyright (C) 2016 Matthew D. Mower
+# Copyright (C) 2013 The CyanogenMod Project
 # Copyright (C) 2012 The Android Open-Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,13 +13,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-LOCAL_PATH := $(call my-dir)
+# Inherit from those products. Most specific first.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-include $(CLEAR_VARS)
+# Inherit from dlx device
+$(call inherit-product, device/htc/dlx/device.mk)
 
-ALL_PREBUILT += $(INSTALLED_KERNEL_TARGET)
-
-# include the non-open-source counterpart to this file
--include vendor/htc/dlx/AndroidBoardVendor.mk
+# Set those variables here to overwrite the inherited values.
+PRODUCT_BRAND := htc
+PRODUCT_DEVICE := dlx
+PRODUCT_MANUFACTURER := HTC
+PRODUCT_MODEL := Droid DNA
+PRODUCT_NAME := full_dlx
